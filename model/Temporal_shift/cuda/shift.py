@@ -42,4 +42,4 @@ class Shift(Module):
         self.ypos.data.uniform_(-init_scale,init_scale)
 
     def forward(self, input):
-        return ShiftFunction.apply(input,self.xpos,self.ypos,self.stride)
+        return ShiftFunction.apply(input.contiguous(),self.xpos,self.ypos,self.stride)
