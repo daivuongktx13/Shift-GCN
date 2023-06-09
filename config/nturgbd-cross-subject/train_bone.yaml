@@ -32,7 +32,7 @@ base_lr: 0.1
 step: [60, 80, 100]
 
 # training
-device: [0,1,2,3]
+device: [0]
 only_train_epoch: 1
 batch_size: 64
 test_batch_size: 64
