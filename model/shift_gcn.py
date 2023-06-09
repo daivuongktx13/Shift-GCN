@@ -5,10 +5,7 @@ from torch.autograd import Variable
 import numpy as np
 import math
 
-import sys
-sys.path.append("./model/Temporal_shift/")
-
-from cuda.shift import Shift
+from model.Temporal_shift.cuda.shift import Shift
 
 
 def import_class(name):
