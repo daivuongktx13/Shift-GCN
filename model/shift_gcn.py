@@ -122,8 +122,8 @@ class Shift_gcn(nn.Module):
         # shift1
         # x = x.view(n*t,v*c)
         # x = torch.index_select(x, 1, self.shift_in)
-        # x = x.view(n*t,v,c)
-        # x = x * (torch.tanh(self.Feature_Mask)+1)
+        x = x.view(n*t,v,c)
+        x = x * (torch.tanh(self.Feature_Mask)+1)
 
         x = torch.einsum('nwc,cd->nwd', (x, self.Linear_weight)).contiguous() # nt,v,c
         x = x + self.Linear_bias
