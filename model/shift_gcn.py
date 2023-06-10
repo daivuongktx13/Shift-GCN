@@ -114,7 +114,7 @@ class TCN_GCN_unit(nn.Module):
     def __init__(self, in_channels, out_channels, A, stride=1, residual=True):
         super(TCN_GCN_unit, self).__init__()
         self.gcn1 = Shift_gcn(in_channels, out_channels, A)
-        self.tcn1 = tcn(in_channels, out_channels, kernel_size=1, stride=stride)
+        self.tcn1 = tcn(in_channels, out_channels, 9, stride=stride)
         self.relu = nn.ReLU()
 
         if not residual:
