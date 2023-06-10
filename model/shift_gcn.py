@@ -66,7 +66,7 @@ class Shift_tcn(nn.Module):
         x = self.temporal_linear(x)
         x = self.relu(x)
         # shift2
-        # x = self.shift_out(x)
+        x = self.shift_out(x)
         x = self.bn2(x)
         return x
 
