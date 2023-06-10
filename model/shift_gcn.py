@@ -62,11 +62,11 @@ class Shift_tcn(nn.Module):
     def forward(self, x):
         x = self.bn(x)
         # shift1
-        x = self.shift_in(x)
+        # x = self.shift_in(x)
         x = self.temporal_linear(x)
         x = self.relu(x)
         # shift2
-        x = self.shift_out(x)
+        # x = self.shift_out(x)
         x = self.bn2(x)
         return x
 
@@ -120,17 +120,17 @@ class Shift_gcn(nn.Module):
         x = x0.permute(0,2,3,1).contiguous()
 
         # shift1
-        x = x.view(n*t,v*c)
-        x = torch.index_select(x, 1, self.shift_in)
-        x = x.view(n*t,v,c)
-        x = x * (torch.tanh(self.Feature_Mask)+1)
+        # x = x.view(n*t,v*c)
+        # x = torch.index_select(x, 1, self.shift_in)
+        # x = x.view(n*t,v,c)
+        # x = x * (torch.tanh(self.Feature_Mask)+1)
 
         x = torch.einsum('nwc,cd->nwd', (x, self.Linear_weight)).contiguous() # nt,v,c
         x = x + self.Linear_bias
 
         # shift2
         x = x.view(n*t,-1) 
-        x = torch.index_select(x, 1, self.shift_out)
+        # x = torch.index_select(x, 1, self.shift_out)
         x = self.bn(x)
         x = x.view(n,t,v,self.out_channels).permute(0,3,1,2) # n,c,t,v
 
