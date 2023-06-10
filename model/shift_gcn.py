@@ -113,6 +113,8 @@ class Shift_gcn(nn.Module):
             for j in range(out_channels):
                 index_array[i*out_channels + j] = (i*out_channels + j - j*out_channels)%(out_channels*25)
         self.shift_out = nn.Parameter(torch.from_numpy(index_array),requires_grad=False)
+
+        self.A = A
         
 
     def forward(self, x0):
@@ -120,8 +122,11 @@ class Shift_gcn(nn.Module):
         x = x0.permute(0,2,3,1).contiguous()
 
         # shift1
-        # x = x.view(n*t,v*c)
-        # x = torch.index_select(x, 1, self.shift_in)
+        x = x.view(n*t,v*c)
+        print(x.shape)
+        x = torch.index_select(x, 1, self.shift_in)
+        print(x.shape)
+        print(self.A.shape)
         x = x.view(n*t,v,c)
         x = x * (torch.tanh(self.Feature_Mask)+1)
 
@@ -130,7 +135,7 @@ class Shift_gcn(nn.Module):
 
         # shift2
         x = x.view(n*t,-1) 
-        # x = torch.index_select(x, 1, self.shift_out)
+        x = torch.index_select(x, 1, self.shift_out)
         x = self.bn(x)
         x = x.view(n,t,v,self.out_channels).permute(0,3,1,2) # n,c,t,v
 
