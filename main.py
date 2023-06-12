@@ -27,8 +27,8 @@ def init_seed(_):
     np.random.seed(1)
     random.seed(1)
     # torch.backends.cudnn.enabled = False
-    # torch.backends.cudnn.deterministic = True
-    # torch.backends.cudnn.benchmark = False
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
 
 def get_parser():
